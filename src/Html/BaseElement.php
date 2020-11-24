@@ -47,6 +47,14 @@ class BaseElement
     }
 
     /**
+     * Prepare element to renderable state
+     */
+    public function prepareElement(): void
+    {
+        $this->render();
+    }
+
+    /**
      * Function that will be called before each render
      */
     public function beforeRender(): void
