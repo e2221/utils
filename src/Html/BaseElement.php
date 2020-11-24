@@ -343,4 +343,15 @@ class BaseElement
         $this->needsRerender = true;
         return $this;
     }
+
+    /**
+     * Get element attributes
+     * @return string
+     */
+    public function getAttributes(): string
+    {
+        if($this->needsRerender === true)
+            $this->render();
+        return $this->element->attributes();
+    }
 }
