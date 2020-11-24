@@ -18,7 +18,7 @@ class BaseElement
     protected ?Html $render=null;
 
     /** @var bool  */
-    private bool $needsRerender=true;
+    protected bool $needsRerender=true;
 
     /** @var bool Is element hidden? */
     public bool $hidden=false;
@@ -30,9 +30,17 @@ class BaseElement
     protected string $class='';
 
 
-    public function __construct(?string $elementName=null)
+    public function __construct(?string $elementName=null, array $attributes=[], ?string $textContent=null)
     {
         $this->element = Html::el($elementName);
+        $this
+            ->addHtmlAttributes($attributes)
+            ->setTextContent($textContent);
+    }
+
+    public function __toString()
+    {
+        return (string)$this->render();
     }
 
     /**
@@ -42,6 +50,10 @@ class BaseElement
     {
     }
 
+    /**
+     * Render element
+     * @return Html|null
+     */
     public function render()
     {
         $this->beforeRender();
@@ -322,7 +334,13 @@ class BaseElement
         return $this;
     }
 
-
-
-
+    /**
+     * Invalidate renderer
+     * @return BaseElement
+     */
+    public function invalidateRenderer(): self
+    {
+        $this->needsRerender = true;
+        return $this;
+    }
 }
