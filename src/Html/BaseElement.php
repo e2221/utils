@@ -11,6 +11,9 @@ class BaseElement
 {
     use SmartObject;
 
+    /** @var string|null Html Element name */
+    protected ?string $elementName=null;
+
     /** @var Html Nette html element */
     protected Html $element;
 
@@ -32,7 +35,8 @@ class BaseElement
 
     public function __construct(?string $elementName=null, array $attributes=[], ?string $textContent=null)
     {
-        $this->element = Html::el($elementName);
+        $this->setElementName($elementName);
+        $this->element = Html::el($this->elementName);
         $this
             ->addHtmlAttributes($attributes)
             ->setTextContent($textContent);
@@ -266,6 +270,7 @@ class BaseElement
     public function setElementName(?string $elementName): self
     {
         $this->element->name($elementName);
+        $this->elementName = $elementName;
         $this->needsRerender = true;
         return $this;
     }
