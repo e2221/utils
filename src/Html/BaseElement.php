@@ -230,7 +230,7 @@ class BaseElement
      */
     public function addDataAttribute(string $attributeName, $attributeValue=null): self
     {
-        $this->element->data($attributeName, $attributeValue);
+        $this->element->data($attributeName, $attributeValue ?? '');
         $this->needsRerender = true;
         return $this;
     }
