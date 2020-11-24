@@ -365,4 +365,13 @@ class BaseElement
             $this->render();
         return $this->element->attributes();
     }
+
+    /**
+     * Is element hidden?
+     * @return bool
+     */
+    public function isHidden(): bool
+    {
+        return $this->hidden;
+    }
 }
