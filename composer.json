@@ -1,0 +1,17 @@
+{
+    "name": "e2221/utils",
+    "description": "Utils for better days",
+    "type": "library",
+    "require": {
+        "nette/utils": "^3.1"
+    },
+    "license": "MIT",
+    "config": {
+        "platform": {
+            "php": "^7.4"
+        }
+    },
+    "autoload": {
+        "classmap": ["src/"]
+    }
+}
