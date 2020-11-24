@@ -19,7 +19,7 @@ class Confirmation
 
     public function getConfirmation(?string $confirmationText=null): string
     {
-        return sprintf("return confirm(''%s)", $confirmationText ?? $this->confirmationText);
+        return sprintf("return confirm('%s')", $confirmationText ?? $this->confirmationText);
     }
 
     public function __toString()
