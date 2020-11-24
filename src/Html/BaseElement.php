@@ -325,11 +325,7 @@ class BaseElement
      */
     public function addClass(string $class): self
     {
-        $newClass = ltrim(rtrim(sprintf("%s%s",
-            empty($this->element->class) ? '' : $this->element->class .  ' ',
-            $class
-        )));
-        $this->element->class($newClass);
+        $this->class = empty($this->class) ? $class : sprintf('%s %s', $this->class, $class);
         $this->needsRerender = true;
         return $this;
     }
