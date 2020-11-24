@@ -273,6 +273,18 @@ class BaseElement
     }
 
     /**
+     * Change element name
+     * @param string $name
+     * @return $this
+     */
+    public function setElementName(string $name): self
+    {
+        $this->element = Html::el($name);
+        $this->needsRerender = true;
+        return $this;
+    }
+
+    /**
      * Set element hidden
      * @param bool $hidden
      * @return BaseElement
