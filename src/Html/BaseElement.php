@@ -32,14 +32,13 @@ class BaseElement
     /** @var string Class - will be connected to default class */
     protected string $class='';
 
-
     public function __construct(?string $elementName=null, array $attributes=[], ?string $textContent=null)
     {
-        $this->element = Html::el($this->elementName);
-        $this->setElementName($elementName);
-        $this
-            ->addHtmlAttributes($attributes)
-            ->setTextContent($textContent);
+        $this->element = Html::el($elementName ?? $this->elementName);
+        if(count($attributes) > 0)
+            $this->addHtmlAttributes($attributes);
+        if(is_string($textContent))
+            $this->setTextContent($textContent);
     }
 
     public function __toString()
@@ -259,20 +258,6 @@ class BaseElement
             empty($this->defaultClass) ? '' : $this->defaultClass . ' ',
             empty($this->class) ? '' : $this->class . ' ',
         )));
-    }
-
-
-    /**
-     * Set element name
-     * @param string|null $elementName
-     * @return BaseElement
-     */
-    public function setElementName(?string $elementName): self
-    {
-        $this->elementName = $elementName;
-        $this->element->name($elementName);
-        $this->needsRerender = true;
-        return $this;
     }
 
     /**
