@@ -129,22 +129,6 @@ class BaseElement
     }
 
     /**
-     * Add class
-     * @param string $class
-     * @return BaseElement
-     */
-    public function addClass(string $class): self
-    {
-        $newClass = ltrim(rtrim(sprintf("%s%s",
-            empty($this->element->class) ? '' : $this->element->class .  ' ',
-            $class
-        )));
-        $this->element->class($newClass);
-        $this->needsRerender = true;
-        return $this;
-    }
-
-    /**
      * Set text content
      * @param Html|string|int|float $textContent
      * @return $this
@@ -331,6 +315,37 @@ class BaseElement
     {
         $this->class = $class;
         $this->needsRerender = true;
+        return $this;
+    }
+
+    /**
+     * Add class (will not rewrite existing class)
+     * @param string $class
+     * @return BaseElement
+     */
+    public function addClass(string $class): self
+    {
+        $newClass = ltrim(rtrim(sprintf("%s%s",
+            empty($this->element->class) ? '' : $this->element->class .  ' ',
+            $class
+        )));
+        $this->element->class($newClass);
+        $this->needsRerender = true;
+        return $this;
+    }
+
+    /**
+     * Remove class from class list
+     * @param string $classToRemove
+     * @return BaseElement
+     */
+    public function removeClass(string $classToRemove): self
+    {
+        $class = $this->element->class;
+        $classList = explode(' ', $class);
+        if(isset($classList[$classToRemove]))
+            unset($classList[$classToRemove]);
+        $this->element->class(implode(' ', $classList));
         return $this;
     }
 
