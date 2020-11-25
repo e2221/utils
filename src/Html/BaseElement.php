@@ -178,13 +178,16 @@ class BaseElement
     /**
      * Add Span
      * @param string|null $spanClass
-     * @param array $attributes
+     * @param array $attributes [html attributes]
+     * @param bool $removeTextContent [true => text content will be deleted]
      * @return BaseElement
      */
-    public function addSpanElement(?string $spanClass=null, array $attributes=[]): self
+    public function addSpanElement(?string $spanClass=null, array $attributes=[], bool $removeTextContent=false): self
     {
         $span = Html::el('span', $attributes)
             ->class($spanClass);
+        if($removeTextContent === true)
+            $this->element->setText('');
         $this->element->addHtml($span);
         $this->needsRerender = true;
         return $this;
@@ -194,12 +197,15 @@ class BaseElement
      * Add Icon
      * @param string|null $iconClass
      * @param array $attributes
+     * @param bool $removeTextContent [true => text content will be deleted]
      * @return BaseElement
      */
-    public function addIconElement(?string $iconClass=null, array $attributes=[]): self
+    public function addIconElement(?string $iconClass=null, array $attributes=[], bool $removeTextContent=false): self
     {
         $icon = Html::el('i', $attributes)
             ->class($iconClass);
+        if($removeTextContent === true)
+            $this->element->setText('');
         $this->element->addHtml($icon);
         $this->needsRerender = true;
         return $this;
