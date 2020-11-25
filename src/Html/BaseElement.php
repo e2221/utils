@@ -303,7 +303,7 @@ class BaseElement
      * @param bool $hidden
      * @return BaseElement
      */
-    public function setHidden(bool $hidden): self
+    public function setHidden(bool $hidden=true): self
     {
         $this->hidden = $hidden;
         $this->needsRerender = true;
