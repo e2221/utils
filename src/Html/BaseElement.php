@@ -180,9 +180,9 @@ class BaseElement
      * @param string|null $spanClass
      * @param array $attributes [html attributes]
      * @param bool $removeTextContent [true => text content will be deleted]
-     * @return BaseElement
+     * @return Html
      */
-    public function addSpanElement(?string $spanClass=null, array $attributes=[], bool $removeTextContent=false): self
+    public function addSpanElement(?string $spanClass=null, array $attributes=[], bool $removeTextContent=false): Html
     {
         $span = Html::el('span', $attributes)
             ->class($spanClass);
@@ -190,7 +190,7 @@ class BaseElement
             $this->element->setText('');
         $this->element->addHtml($span);
         $this->needsRerender = true;
-        return $this;
+        return $span;
     }
 
     /**
@@ -198,9 +198,9 @@ class BaseElement
      * @param string|null $iconClass
      * @param array $attributes
      * @param bool $removeTextContent [true => text content will be deleted]
-     * @return BaseElement
+     * @return Html
      */
-    public function addIconElement(?string $iconClass=null, array $attributes=[], bool $removeTextContent=false): self
+    public function addIconElement(?string $iconClass=null, array $attributes=[], bool $removeTextContent=false): Html
     {
         $icon = Html::el('i', $attributes)
             ->class($iconClass);
@@ -208,7 +208,7 @@ class BaseElement
             $this->element->setText('');
         $this->element->addHtml($icon);
         $this->needsRerender = true;
-        return $this;
+        return $icon;
     }
 
     /**
