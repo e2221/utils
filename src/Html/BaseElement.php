@@ -41,13 +41,13 @@ class BaseElement
             $this->setTextContent($textContent);
     }
 
-    public function __toString()
+    public function __toString(): string
     {
         return (string)$this->render();
     }
 
     /**
-     * Prepare element to renderable state
+     * Prepare element to render-able state
      */
     public function prepareElement(): void
     {
@@ -65,7 +65,7 @@ class BaseElement
      * Render element
      * @return Html|null
      */
-    public function render()
+    public function render(): ?Html
     {
         $this->beforeRender();
         if($this->hidden === true)
@@ -129,7 +129,7 @@ class BaseElement
      * @param IHtmlString|BaseElement $element
      * @return BaseElement
      */
-    public function addElement($element)
+    public function addElement($element): BaseElement
     {
         if($element instanceof IHtmlString || is_string($element))
             $this->element->addHtml($element);
