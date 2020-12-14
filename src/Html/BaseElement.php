@@ -408,4 +408,13 @@ class BaseElement
     {
         return $this->hidden;
     }
+
+    /**
+     * Get element name
+     * @return string|null
+     */
+    public function getElementName(): ?string
+    {
+        return $this->elementName;
+    }
 }
