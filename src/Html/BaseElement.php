@@ -111,6 +111,15 @@ class BaseElement
     }
 
     /**
+     * Start tag - the same as renderStartTag() for compatibility with \Nette\Utils\Html
+     * @return string|null
+     */
+    public function startTag(): ?string
+    {
+        return $this->renderStartTag();
+    }
+
+    /**
      * Render end tag
      * @return string|null
      */
@@ -122,6 +131,15 @@ class BaseElement
         if($render instanceof Html)
             return $render->endTag();
         return null;
+    }
+
+    /**
+     * End tag - the same as renderEndTag() for compatibility with \Nette\Utils\Html
+     * @return string|null
+     */
+    public function endTag(): ?string
+    {
+        return $this->renderEndTag();
     }
 
     /**
