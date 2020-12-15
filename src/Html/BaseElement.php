@@ -232,7 +232,7 @@ class BaseElement
     /**
      * Add html attribute
      * @param string $attributeName
-     * @param mixed|null $attributeValue
+     * @param string|null $attributeValue
      * @return BaseElement
      */
     public function addHtmlAttribute(string $attributeName, $attributeValue=null): self
@@ -257,7 +257,7 @@ class BaseElement
     /**
      * Add data attribute
      * @param string $attributeName
-     * @param null $attributeValue
+     * @param string|null $attributeValue
      * @return BaseElement
      */
     public function addDataAttribute(string $attributeName, $attributeValue=null): self
