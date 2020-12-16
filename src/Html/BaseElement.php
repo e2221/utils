@@ -312,6 +312,7 @@ class BaseElement
     public function setElementName(string $name): self
     {
         $this->element = Html::el($name);
+        $this->elementName = $name;
         $this->needsRerender = true;
         return $this;
     }
