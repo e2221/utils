@@ -1,5 +1,5 @@
 <?php
-
+declare(strict_types=1);
 
 namespace e2221\utils\Html;
 
@@ -10,6 +10,21 @@ class HrefElement extends BaseElement
     public function __construct(string $elementName='a', array $attributes=[], ?string $textContent=null)
     {
         parent::__construct($elementName, $attributes, $textContent);
+    }
+
+    /**
+     * Get static
+     * @param string|null $elementName
+     * @param array $attributes
+     * @param string|null $textContent
+     * @return BaseElement
+     */
+    public static function getStatic(?string $elementName='a', array $attributes=[], ?string $textContent=null): BaseElement
+    {
+        $static = new static($elementName);
+        return $static
+            ->addHtmlAttributes($attributes)
+            ->setTextContent($textContent);
     }
 
     /**
