@@ -47,6 +47,7 @@ class HrefElement extends BaseElement
      */
     public function setTarget(string $type): HrefElement
     {
+        $this->needsRerender = true;
         return $this->addHtmlAttribute('target', $type);
     }
 
@@ -57,6 +58,7 @@ class HrefElement extends BaseElement
      */
     public function setTargetBlank(bool $targetBlank=true): HrefElement
     {
+        $this->needsRerender = true;
         if($targetBlank === true)
              $this->setTarget('_blank');
         return $this;
@@ -70,6 +72,7 @@ class HrefElement extends BaseElement
      */
     public function setConfirmation(string $confirmationText, string $event='onclick'): HrefElement
     {
+        $this->needsRerender = true;
         $this->addHtmlAttribute($event, new Confirmation($confirmationText));
         return $this;
     }
