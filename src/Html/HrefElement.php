@@ -19,7 +19,7 @@ class HrefElement extends BaseElement
      * @param string|null $textContent
      * @return BaseElement
      */
-    public static function getStatic(?string $elementName='a', array $attributes=[], ?string $textContent=null): BaseElement
+    public static function getStatic(?string $elementName='a', array $attributes=[], ?string $textContent=null): HrefElement
     {
         $static = new static($elementName);
         return $static
