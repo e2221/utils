@@ -26,13 +26,25 @@ class HrefElement extends BaseElement
     }
 
     /**
-     * Set target blank
+     * Set target
      * @param string $type
      * @return HrefElement
      */
-    public function setTarget(string $type='_blank'): HrefElement
+    public function setTarget(string $type): HrefElement
     {
         return $this->addHtmlAttribute('target', $type);
+    }
+
+    /**
+     * Set target blank
+     * @param bool $targetBlank
+     * @return HrefElement
+     */
+    public function setTargetBlank(bool $targetBlank=true): HrefElement
+    {
+        if($targetBlank === true)
+             $this->setTarget('_blank');
+        return $this;
     }
 
     /**
