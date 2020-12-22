@@ -3,9 +3,11 @@ declare(strict_types=1);
 
 namespace e2221\utils\Html;
 
+use e2221\utils\Html\Exceptions\BaseElementException;
 use Nette\SmartObject;
 use Nette\Utils\Html;
 use Nette\Utils\IHtmlString;
+
 
 class BaseElement
 {
@@ -31,6 +33,12 @@ class BaseElement
 
     /** @var string Class - will be connected to default class */
     protected string $class='';
+
+    /** @var BaseElement|null Parent element */
+    protected ?BaseElement $parent=null;
+
+    /** @var BaseElement[]|IHtmlString[] */
+    protected array $childrenElements=[];
 
     public function __construct(?string $elementName=null, array $attributes=[], ?string $textContent=null)
     {
@@ -72,6 +80,17 @@ class BaseElement
             return null;
         if($this->needsRerender === false && $this->render instanceof Html)
             return $this->element;
+
+        foreach($this->childrenElements as $element)
+        {
+            if($element instanceof IHtmlString || is_string($element))
+                $this->element->addHtml($element);
+            if($element instanceof BaseElement)
+            {
+                $element->setParent($this);
+                $this->element->addHtml(($element->render()));
+            }
+        }
 
         $class = $this->buildElementClass();
         if(empty($class) === false)
@@ -144,17 +163,37 @@ class BaseElement
 
     /**
      * Add element
+     * @param string $name
      * @param IHtmlString|BaseElement $element
      * @return BaseElement
      */
-    public function addElement($element): BaseElement
+    public function addElement(string $name, $element): BaseElement
     {
-        if($element instanceof IHtmlString || is_string($element))
-            $this->element->addHtml($element);
-        if($element instanceof BaseElement)
-            $this->element->addHtml(($element->render()));
+        $this->childrenElements[$name] = $element;
         $this->needsRerender = true;
         return $this;
+    }
+
+    /**
+     * Get children elements
+     * @return BaseElement[]|IHtmlString[]
+     */
+    public function getChildrenElements()
+    {
+        return $this->childrenElements;
+    }
+
+    /**
+     * Get children element
+     * @param string $name
+     * @return BaseElement|IHtmlString
+     * @throws BaseElementException
+     */
+    public function getChildrenElement(string $name)
+    {
+        if(isset($this->childrenElements[$name]) === false)
+            throw new BaseElementException(sprintf('Child element [%s] was not found.', $name));
+        return $this->childrenElements[$name];
     }
 
     /**
@@ -417,5 +456,25 @@ class BaseElement
     public function getElementName(): ?string
     {
         return $this->elementName;
+    }
+
+    /**
+     * Set parent element
+     * @param BaseElement|null $parent
+     * @return BaseElement
+     */
+    public function setParent(?BaseElement $parent): self
+    {
+        $this->parent = $parent;
+        return $this;
+    }
+
+    /**
+     * Get parent
+     * @return BaseElement|null
+     */
+    public function getParent(): ?BaseElement
+    {
+        return $this->parent;
     }
 }
