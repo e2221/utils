@@ -477,4 +477,13 @@ class BaseElement
     {
         return $this->parent;
     }
+
+    /**
+     * Get Nette Html element
+     * @return Html
+     */
+    public function getElement(): Html
+    {
+        return $this->element;
+    }
 }
