@@ -6,8 +6,6 @@ namespace e2221\utils\Html;
 use e2221\utils\Html\Exceptions\BaseElementException;
 use Nette\SmartObject;
 use Nette\Utils\Html;
-use Nette\Utils\IHtmlString;
-
 
 class BaseElement
 {
@@ -37,7 +35,7 @@ class BaseElement
     /** @var BaseElement|null Parent element */
     protected ?BaseElement $parent=null;
 
-    /** @var BaseElement[]|IHtmlString[] */
+    /** @var BaseElement[]|Html[] */
     protected array $childrenElements=[];
 
     public function __construct(?string $elementName=null, array $attributes=[], ?string $textContent=null)
@@ -83,7 +81,7 @@ class BaseElement
 
         foreach($this->childrenElements as $element)
         {
-            if($element instanceof IHtmlString || is_string($element))
+            if($element instanceof Html || is_string($element))
                 $this->element->addHtml($element);
             if($element instanceof BaseElement)
             {
@@ -164,7 +162,7 @@ class BaseElement
     /**
      * Add element
      * @param string $name
-     * @param IHtmlString|BaseElement $element
+     * @param Html|BaseElement $element
      * @return BaseElement
      */
     public function addElement(string $name, $element): BaseElement
@@ -176,7 +174,7 @@ class BaseElement
 
     /**
      * Get children elements
-     * @return BaseElement[]|IHtmlString[]
+     * @return BaseElement[]|Html[]
      */
     public function getChildrenElements()
     {
@@ -186,7 +184,7 @@ class BaseElement
     /**
      * Get children element
      * @param string $name
-     * @return BaseElement|IHtmlString
+     * @return BaseElement|Html
      * @throws BaseElementException
      */
     public function getChildrenElement(string $name)
@@ -486,4 +484,15 @@ class BaseElement
     {
         return $this->element;
     }
+
+    /**
+     * Remove all children
+     * @return BaseElement
+     */
+    public function removeChildren(): self
+    {
+        $this->childrenElements = [];
+        return $this;
+    }
+
 }
