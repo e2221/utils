@@ -195,6 +195,30 @@ class BaseElement
     }
 
     /**
+     * Set html content
+     * @param Html|string|BaseElement $htmlContent
+     * @return BaseElement
+     */
+    public function setHtmlContent($htmlContent): self
+    {
+        $this->element->setHtml($htmlContent);
+        $this->needsRerender = true;
+        return $this;
+    }
+
+    /**
+     * Add html content
+     * @param Html|string|BaseElement $htmlContent
+     * @return BaseElement
+     */
+    public function addHtmlContent($htmlContent): self
+    {
+        $this->element->addHtml($htmlContent);
+        $this->needsRerender;
+        return $this;
+    }
+
+    /**
      * Set text content
      * @param Html|string|int|float $textContent
      * @return $this
